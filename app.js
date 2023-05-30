@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
-const { createHandler } = require('graphql-http/lib/use/express');
+
+const schema = require('./schema/schema')
 
 
 const port = process.env.PORT || 3000;
