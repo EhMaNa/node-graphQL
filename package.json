@@ -4,7 +4,7 @@
   "description": "A graphQL implementation with node",
   "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon app.js"
   },
   "author": "EhMAnA",
   "license": "ISC",
@@ -13,7 +13,6 @@
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "graphql": "^16.6.0",
-    "graphql-http": "^1.18.0",
     "install": "^0.13.0",
     "mongoose": "^7.2.1"
   },
