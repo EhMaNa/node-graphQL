@@ -19,6 +19,10 @@ const HeroType = new GraphQLObjectType({
       id: { type: GraphQLID },
       name: { type: GraphQLString },
       email: { type: GraphQLString },
+      hero_name: { type: GraphQLString },
+      company: { type: CompanyType, resolve: (parent) => {
+        return clients.find(client => client.id === parent.clientId);
+      }} ,
     }),
   });
 
@@ -26,26 +30,23 @@ const HeroType = new GraphQLObjectType({
     name: 'Company',
     fields: () => ({
       id: {type: GraphQLID },
-      client: { type: ClientType, resolve: (parent) => {
-        return clients.find(client => client.id === parent.clientId);
-      }} ,
       name: { type: GraphQLString },
-      description: { type: GraphQLString },
-      status: { type: GraphQLString },
+      email: { type: GraphQLString },
+      
     }),
   });
 
   const RootQuery = new GraphQLObjectType({
     name: 'RootQuery',
     fields: {
-      projects:{
-        type: GraphQLList(ProjectType),
+      companies:{
+        type: GraphQLList(CompanyType),
         resolve: (parent, args) => {
-          return Company
+          return Company.find();
         }
       },
-      project: {
-          type: ProjectType,
+      company: {
+          type: CompanyType,
           args: {
               id: {
               type: GraphQLID
@@ -55,7 +56,7 @@ const HeroType = new GraphQLObjectType({
           }
       },
         clients:{
-          type: GraphQLList(ClientType),
+          type: GraphQLList(HeroType),
           resolve: (parent, args) => {
             return Hero.find();
           }
