@@ -1,5 +1,4 @@
-const {projects, client, clients }= require('./user');
-const {Hero, Company} = require('./schema/mongo_schema');
+const {Hero, Company} = require('./mongo_schema');
 
 
 const {
@@ -11,7 +10,6 @@ const {
     GraphQLNonNull,
     GraphQLEnumType,
   } = require('graphql');
-// const client = require('./user');
 
 const HeroType = new GraphQLObjectType({
     name: "Hero",
@@ -21,7 +19,7 @@ const HeroType = new GraphQLObjectType({
       email: { type: GraphQLString },
       hero_name: { type: GraphQLString },
       company: { type: CompanyType, resolve: (parent) => {
-        return clients.find(client => client.id === parent.clientId);
+        return Company.findById(parent.companyId);
       }} ,
     }),
   });
@@ -55,14 +53,14 @@ const HeroType = new GraphQLObjectType({
               return Company.findById(args.id);
           }
       },
-        clients:{
+        heroes:{
           type: GraphQLList(HeroType),
           resolve: (parent, args) => {
             return Hero.find();
           }
         },
-        client: {
-            type: ClientType,
+        hero: {
+            type: HeroType,
             args: {
                 id: {
                 type: GraphQLID
