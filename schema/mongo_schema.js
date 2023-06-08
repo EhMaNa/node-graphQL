@@ -32,6 +32,11 @@ const heroSchema = new mongoose.Schema({
     }
 
 });
+const Hero = mongoose.model('Hero', heroSchema);
+const Company = mongoose.model('Company', companySchema);
 
-module.exports = mongoose.model('Hero', heroSchema);
-module.exports = mongoose.model('Company', companySchema);
+
+
+
+
+module.exports = {Hero, Company}
