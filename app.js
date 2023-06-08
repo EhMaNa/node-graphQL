@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const { graphqlHTTP } = require('express-graphql');
 const mongo = require('mongoose');
+require('dotenv').config();
 
 const GraphQLSchema = require('./schema/schema')
 
@@ -16,10 +17,11 @@ app.use(
   const db = process.env.MONGO_URI
   mongo.connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
       .then(() => {
-          console.log('Connected Successfully To ' + db)
+          console.log('Connected Successfully To Database')
       })
       .catch(() => {
           console.log('An Error Occured Whiles Connecting To Database')
+          
       })
 
 
